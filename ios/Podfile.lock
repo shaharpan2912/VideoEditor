@@ -212,6 +212,8 @@ PODS:
     - React
   - react-native-image-picker (4.0.6):
     - React-Core
+  - react-native-meta-media (0.0.11):
+    - React-Core
   - react-native-video (5.1.1):
     - React-Core
     - react-native-video/Video (= 5.1.1)
@@ -305,6 +307,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-ffmpeg/video-lts (from `../node_modules/react-native-ffmpeg/react-native-ffmpeg.podspec`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-meta-media (from `../node_modules/react-native-media-meta`)
   - react-native-video (from `../node_modules/react-native-video`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -362,6 +365,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native-ffmpeg/react-native-ffmpeg.podspec"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-meta-media:
+    :path: "../node_modules/react-native-media-meta"
   react-native-video:
     :path: "../node_modules/react-native-video"
   React-perflogger:
@@ -414,6 +419,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-ffmpeg: 587fa045f985d775107f4b8cbb6c79df0ad68e63
   react-native-image-picker: a6e56460d34905c849ada551db30897dc7f3d535
+  react-native-meta-media: ee837c99adfdc2d6f14bd129b97f9bd3e84434d8
   react-native-video: 0bb76b6d6b77da3009611586c7dbf817b947f30e
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa

@@ -41,8 +41,12 @@ import {
 const { width, height } = Dimensions.get('window');
 const directoryPath = RNFS.TemporaryDirectoryPath;
 let downloaDirectoryPath = RNFS.DownloadDirectoryPath;
+
+//Users/dipakbhoot/Library/Developer/CoreSimulator/Devices/CC405925-114D-4B14-B10F-08BA87F4391A/data/Containers/Bundle/Application/AB374989-D17F-4F8D-A82E-C76044592508/VideoEditor.app/OpenSans-Italic.ttf
+
 if (Platform.OS === 'ios') {
   downloaDirectoryPath = RNFS.DocumentDirectoryPath;
+  console.log("RNFS.MainBundlePath",RNFS.MainBundlePath)
   RNFS.readDir(RNFS.MainBundlePath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
     .then((result) => {
       console.log('GOT RESULT', result);
@@ -75,7 +79,7 @@ if (Platform.OS === 'android') {
       console.log("e", e);
     })
 } else {
-  RNFFmpegConfig.setFontDirectory(`${RNFS.MainBundlePath}assets/fonts`);
+  RNFFmpegConfig.setFontDirectory(`${RNFS.MainBundlePath}`);
 }
 
 const androidFontPath = '/system/fonts/DroidSans.ttf';
