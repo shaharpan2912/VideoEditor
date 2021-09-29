@@ -235,7 +235,7 @@ const App: () => Node = () => {
         // setdar=16/9
         // -b:v 2000k
 
-        let command = `-i  ${files[0].location} -i ${files[1].location} -b:v 1000k -r 50   -filter_complex "`
+        let command = `-i  ${files[0].location} -i ${files[1].location} -b:v 500k -r 25   -filter_complex "`
         if (files[0].addPad) {
           command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
         } else {
