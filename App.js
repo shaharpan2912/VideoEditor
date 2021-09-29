@@ -43,6 +43,28 @@ const directoryPath = RNFS.TemporaryDirectoryPath;
 let downloaDirectoryPath = RNFS.DownloadDirectoryPath;
 if (Platform.OS === 'ios') {
   downloaDirectoryPath = RNFS.DocumentDirectoryPath;
+  RNFS.readDir(RNFS.MainBundlePath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
+    .then((result) => {
+      console.log('GOT RESULT', result);
+
+      //   // stat the first file
+      //   return Promise.all([RNFS.stat(result[0].path), result[0].path]);
+      // })
+      // .then((statResult) => {
+      //   if (statResult[0].isFile()) {
+      //     // if we have a file, read it
+      //     return RNFS.readFile(statResult[1], 'utf8');
+      //   }
+
+      //   return 'no file';
+      // })
+      // .then((contents) => {
+      //   // log the file contents
+      //   console.log(contents);
+    })
+    .catch((err) => {
+      console.log(err.message, err.code);
+    });
 }
 if (Platform.OS === 'android') {
   RNFS.copyFileAssets('fonts/OpenSans-Regular.ttf', `${RNFS.DocumentDirectoryPath}/OpenSans-Regular.ttf`)
