@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* VideoEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* VideoEditorTests.m */; };
+		0B44A0B38194D7F616E23209 /* libPods-VideoEditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A9DAF6A6365F9BF9C621D5 /* libPods-VideoEditor.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D233534F56D44CAC98BE9AAC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13946E7D8A5E46C7B3C628D7 /* OpenSans-Bold.ttf */; };
-		7FC25DCCE4E740EC8B487D4E /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30A30D74CA014190AF86515D /* OpenSans-BoldItalic.ttf */; };
-		D373DE180B614594B3C9717A /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2DD250A8F2949D78DE9B593 /* OpenSans-ExtraBold.ttf */; };
-		BCD96D6C9CF947448EF9AF03 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0716B1F7B364F829226DF3B /* OpenSans-ExtraBoldItalic.ttf */; };
+		20D7D8C7BE0846BD94B1CDC3 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC06F7E34B4A49C083F3577E /* OpenSans-Regular.ttf */; };
 		26B9106EDE97434296142704 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26E2D54585C243DD9C4C3BF4 /* OpenSans-Italic.ttf */; };
-		B1AFC61ECF294A36BAD11968 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E64C9CE578A54379990F7A3E /* OpenSans-Light.ttf */; };
 		44DDF562C58E421CBB577FAF /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC87122EB7FD4513AD884C82 /* OpenSans-LightItalic.ttf */; };
 		794F42C2726D42F5B7412738 /* OpenSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6F4489C756F471EBFE85C24 /* OpenSans-Medium.ttf */; };
-		E83209F5620B4737A9965CAC /* OpenSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C9937DCF5794CE79AFC4E69 /* OpenSans-MediumItalic.ttf */; };
-		20D7D8C7BE0846BD94B1CDC3 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC06F7E34B4A49C083F3577E /* OpenSans-Regular.ttf */; };
+		7FC25DCCE4E740EC8B487D4E /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30A30D74CA014190AF86515D /* OpenSans-BoldItalic.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A7DAAD1D9E0E45898EB87D21 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3F9E83375914CEC8454E224 /* OpenSans-SemiBold.ttf */; };
+		B1AFC61ECF294A36BAD11968 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E64C9CE578A54379990F7A3E /* OpenSans-Light.ttf */; };
+		BCD96D6C9CF947448EF9AF03 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0716B1F7B364F829226DF3B /* OpenSans-ExtraBoldItalic.ttf */; };
+		D233534F56D44CAC98BE9AAC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13946E7D8A5E46C7B3C628D7 /* OpenSans-Bold.ttf */; };
+		D373DE180B614594B3C9717A /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2DD250A8F2949D78DE9B593 /* OpenSans-ExtraBold.ttf */; };
 		DDAC574A0429417FBD9EA7D9 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12591A2A5D0F4343B42A8A69 /* OpenSans-SemiBoldItalic.ttf */; };
+		E63E1A0D0468A7C3108FC8EE /* libPods-VideoEditor-VideoEditorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0224AA071471B899E5A41E8A /* libPods-VideoEditor-VideoEditorTests.a */; };
+		E83209F5620B4737A9965CAC /* OpenSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C9937DCF5794CE79AFC4E69 /* OpenSans-MediumItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,26 +42,32 @@
 		00E356EE1AD99517003FC87E /* VideoEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* VideoEditorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoEditorTests.m; sourceTree = "<group>"; };
+		0224AA071471B899E5A41E8A /* libPods-VideoEditor-VideoEditorTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VideoEditor-VideoEditorTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		12591A2A5D0F4343B42A8A69 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		13946E7D8A5E46C7B3C628D7 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* VideoEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = VideoEditor/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = VideoEditor/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = VideoEditor/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VideoEditor/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VideoEditor/main.m; sourceTree = "<group>"; };
+		26E2D54585C243DD9C4C3BF4 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		30A30D74CA014190AF86515D /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../assets/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		3C9937DCF5794CE79AFC4E69 /* OpenSans-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-MediumItalic.ttf"; path = "../assets/fonts/OpenSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		49A9DAF6A6365F9BF9C621D5 /* libPods-VideoEditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VideoEditor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		54FEBBD14DC511137548B8CE /* Pods-VideoEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoEditor.release.xcconfig"; path = "Target Support Files/Pods-VideoEditor/Pods-VideoEditor.release.xcconfig"; sourceTree = "<group>"; };
+		717369F8EB7BE09677665D2D /* Pods-VideoEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoEditor.debug.xcconfig"; path = "Target Support Files/Pods-VideoEditor/Pods-VideoEditor.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VideoEditor/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AC87122EB7FD4513AD884C82 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		B6F4489C756F471EBFE85C24 /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Medium.ttf"; path = "../assets/fonts/OpenSans-Medium.ttf"; sourceTree = "<group>"; };
+		C443CA0EB385ADABFFC4ACAC /* Pods-VideoEditor-VideoEditorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoEditor-VideoEditorTests.debug.xcconfig"; path = "Target Support Files/Pods-VideoEditor-VideoEditorTests/Pods-VideoEditor-VideoEditorTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D2DD250A8F2949D78DE9B593 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBold.ttf"; path = "../assets/fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		DC3A65F9CF04DE3E681E79CB /* Pods-VideoEditor-VideoEditorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoEditor-VideoEditorTests.release.xcconfig"; path = "Target Support Files/Pods-VideoEditor-VideoEditorTests/Pods-VideoEditor-VideoEditorTests.release.xcconfig"; sourceTree = "<group>"; };
+		E0716B1F7B364F829226DF3B /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		E64C9CE578A54379990F7A3E /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		EC06F7E34B4A49C083F3577E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		13946E7D8A5E46C7B3C628D7 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		30A30D74CA014190AF86515D /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-BoldItalic.ttf"; path = "../assets/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D2DD250A8F2949D78DE9B593 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-ExtraBold.ttf"; path = "../assets/fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E0716B1F7B364F829226DF3B /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		26E2D54585C243DD9C4C3BF4 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E64C9CE578A54379990F7A3E /* OpenSans-Light.ttf */ = {isa = PBXFileReference; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AC87122EB7FD4513AD884C82 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B6F4489C756F471EBFE85C24 /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; name = "OpenSans-Medium.ttf"; path = "../assets/fonts/OpenSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3C9937DCF5794CE79AFC4E69 /* OpenSans-MediumItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-MediumItalic.ttf"; path = "../assets/fonts/OpenSans-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EC06F7E34B4A49C083F3577E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F3F9E83375914CEC8454E224 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		12591A2A5D0F4343B42A8A69 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F3F9E83375914CEC8454E224 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E63E1A0D0468A7C3108FC8EE /* libPods-VideoEditor-VideoEditorTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B44A0B38194D7F616E23209 /* libPods-VideoEditor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,10 +120,44 @@
 			name = VideoEditor;
 			sourceTree = "<group>";
 		};
+		2A3D373F55BE4A74B34AD461 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				13946E7D8A5E46C7B3C628D7 /* OpenSans-Bold.ttf */,
+				30A30D74CA014190AF86515D /* OpenSans-BoldItalic.ttf */,
+				D2DD250A8F2949D78DE9B593 /* OpenSans-ExtraBold.ttf */,
+				E0716B1F7B364F829226DF3B /* OpenSans-ExtraBoldItalic.ttf */,
+				26E2D54585C243DD9C4C3BF4 /* OpenSans-Italic.ttf */,
+				E64C9CE578A54379990F7A3E /* OpenSans-Light.ttf */,
+				AC87122EB7FD4513AD884C82 /* OpenSans-LightItalic.ttf */,
+				B6F4489C756F471EBFE85C24 /* OpenSans-Medium.ttf */,
+				3C9937DCF5794CE79AFC4E69 /* OpenSans-MediumItalic.ttf */,
+				EC06F7E34B4A49C083F3577E /* OpenSans-Regular.ttf */,
+				F3F9E83375914CEC8454E224 /* OpenSans-SemiBold.ttf */,
+				12591A2A5D0F4343B42A8A69 /* OpenSans-SemiBoldItalic.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
+		2B5C9964B55718F3E88F40A4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				717369F8EB7BE09677665D2D /* Pods-VideoEditor.debug.xcconfig */,
+				54FEBBD14DC511137548B8CE /* Pods-VideoEditor.release.xcconfig */,
+				C443CA0EB385ADABFFC4ACAC /* Pods-VideoEditor-VideoEditorTests.debug.xcconfig */,
+				DC3A65F9CF04DE3E681E79CB /* Pods-VideoEditor-VideoEditorTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				49A9DAF6A6365F9BF9C621D5 /* libPods-VideoEditor.a */,
+				0224AA071471B899E5A41E8A /* libPods-VideoEditor-VideoEditorTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -134,6 +178,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				2A3D373F55BE4A74B34AD461 /* Resources */,
+				2B5C9964B55718F3E88F40A4 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,26 +194,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2A3D373F55BE4A74B34AD461 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				13946E7D8A5E46C7B3C628D7 /* OpenSans-Bold.ttf */,
-				30A30D74CA014190AF86515D /* OpenSans-BoldItalic.ttf */,
-				D2DD250A8F2949D78DE9B593 /* OpenSans-ExtraBold.ttf */,
-				E0716B1F7B364F829226DF3B /* OpenSans-ExtraBoldItalic.ttf */,
-				26E2D54585C243DD9C4C3BF4 /* OpenSans-Italic.ttf */,
-				E64C9CE578A54379990F7A3E /* OpenSans-Light.ttf */,
-				AC87122EB7FD4513AD884C82 /* OpenSans-LightItalic.ttf */,
-				B6F4489C756F471EBFE85C24 /* OpenSans-Medium.ttf */,
-				3C9937DCF5794CE79AFC4E69 /* OpenSans-MediumItalic.ttf */,
-				EC06F7E34B4A49C083F3577E /* OpenSans-Regular.ttf */,
-				F3F9E83375914CEC8454E224 /* OpenSans-SemiBold.ttf */,
-				12591A2A5D0F4343B42A8A69 /* OpenSans-SemiBoldItalic.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -176,9 +201,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "VideoEditorTests" */;
 			buildPhases = (
+				64834C88D9D028DE1A4D231A /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				CB798361582F797D3A7FA08F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -194,11 +221,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "VideoEditor" */;
 			buildPhases = (
+				D3BF6F4D9EDECCF6135038C6 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				2E5967C65E8F03F97D36B700 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,6 +320,84 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
+		2E5967C65E8F03F97D36B700 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoEditor/Pods-VideoEditor-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoEditor/Pods-VideoEditor-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VideoEditor/Pods-VideoEditor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64834C88D9D028DE1A4D231A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VideoEditor-VideoEditorTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB798361582F797D3A7FA08F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoEditor-VideoEditorTests/Pods-VideoEditor-VideoEditorTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoEditor-VideoEditorTests/Pods-VideoEditor-VideoEditorTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VideoEditor-VideoEditorTests/Pods-VideoEditor-VideoEditorTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3BF6F4D9EDECCF6135038C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VideoEditor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +450,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C443CA0EB385ADABFFC4ACAC /* Pods-VideoEditor-VideoEditorTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -369,6 +477,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3A65F9CF04DE3E681E79CB /* Pods-VideoEditor-VideoEditorTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -392,6 +501,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 717369F8EB7BE09677665D2D /* Pods-VideoEditor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -417,6 +527,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54FEBBD14DC511137548B8CE /* Pods-VideoEditor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -471,6 +582,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -535,6 +647,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
