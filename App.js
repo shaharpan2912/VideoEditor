@@ -10,7 +10,7 @@ import React, { useState, } from 'react';
 import type { Node } from 'react';
 import * as RNFS from 'react-native-fs';
 import Video from 'react-native-video';
-import { TouchableOpacity, Dimensions, Platform } from 'react-native';
+import { TouchableOpacity, Dimensions, Platform, Button } from 'react-native';
 import { LogLevel, RNFFprobe, RNFFmpeg, RNFFmpegConfig } from 'react-native-ffmpeg';
 import MediaMeta from 'react-native-media-meta';
 import * as ImagePicker from 'react-native-image-picker';
@@ -46,7 +46,7 @@ let downloaDirectoryPath = RNFS.DownloadDirectoryPath;
 
 if (Platform.OS === 'ios') {
   downloaDirectoryPath = RNFS.DocumentDirectoryPath;
-  console.log("RNFS.MainBundlePath",RNFS.MainBundlePath)
+  console.log("RNFS.MainBundlePath", RNFS.MainBundlePath)
   RNFS.readDir(RNFS.MainBundlePath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
     .then((result) => {
       console.log('GOT RESULT', result);
@@ -135,6 +135,24 @@ const App: () => Node = () => {
     try {
       ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true, selectionLimit: 0 }, async (response) => {
         console.log(response);
+        if (response.didCancel === true) {
+          return;
+        }
+        if (response.assets.length < 2) {
+          Alert.alert(
+            "Error",
+            "Please select two videos",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+          return;
+        }
         // ffmpeg -i output1.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts fileIntermediate1.ts
         const files = [];
         setIsLoading(true);
@@ -232,8 +250,8 @@ const App: () => Node = () => {
         // command += `[v]drawtext=fontfile=${fontPath}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
         // drawtext=fontfile=${fontPath}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
-        command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
-        drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
+        command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=20:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
+        drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=20:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
         command += ` -map "[vs]" -map "[a]" -y ${downloaDirectoryPath}/output1.mp4`
         console.log("command", command);
@@ -312,9 +330,16 @@ const App: () => Node = () => {
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
           </Section> */}
-          <TouchableOpacity onPress={() => selectVideo()} ><Text style={{
-            fontFamily: 'OpenSans-Regular'
-          }}>Select Video</Text></TouchableOpacity>
+          <TouchableOpacity  ><Button style={{
+            fontFamily: 'OpenSans-Regular',
+            fontSize: 20,
+            height: 50,
+            width: 200
+          }}
+            onPress={() => selectVideo()}
+            title="Select Video"
+          ></Button>
+          </TouchableOpacity>
           {video && <Video source={{ uri: video }}   // Can be a URL or a local file.
             ref={(ref) => {
               this.player = ref
@@ -341,7 +366,7 @@ const App: () => Node = () => {
           {/* <Section title="Debug">
             <DebugInstructions />
           </Section> */}
-          <TouchableOpacity onPress={() => editVideo()} ><Text>Edit Video</Text></TouchableOpacity>
+          {/* <TouchableOpacity onPress={() => editVideo()} ><Text>Edit Video</Text></TouchableOpacity> */}
           {isLoading && <Text>Video merging is in process....</Text>}
           {/* <Section title="Learn More">
             Read the docs to discover what to do next:
