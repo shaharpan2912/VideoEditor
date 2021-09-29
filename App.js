@@ -281,6 +281,9 @@ const App: () => Node = () => {
     }
   }
 
+  editVideo = () => {
+    setVideo(`${downloaDirectoryPath}/output1.mp4`);
+  }
   getFileUrl = async (url, path) => {
 
     await RNFS.copyFile(url, path);
@@ -297,7 +300,6 @@ const App: () => Node = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
@@ -312,16 +314,22 @@ const App: () => Node = () => {
           {video && <Video source={{ uri: video }}   // Can be a URL or a local file.
             ref={(ref) => {
               this.player = ref
-            }}                                      // Store reference
+            }}
+            // Store reference
             // onBuffer={this.onBuffer}                // Callback when remote video is buffering
             // onError={this.videoError}               // Callback when video cannot be loaded
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
+              height,
+              width: '100%',
+              // position: 'absolute',
+              // top: 0,
+              // left: 0,
+              // bottom: 0,
+              // right: 0,
             }}
+            fullscreen={true}
+            resizeMode="contain"
+            controls={true}
           />}
           {/* <Section title="See Your Changes">
             <ReloadInstructions />
@@ -329,7 +337,7 @@ const App: () => Node = () => {
           {/* <Section title="Debug">
             <DebugInstructions />
           </Section> */}
-          <TouchableOpacity onPress={() => selectVideo()} ><Text>Edit Video</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => editVideo()} ><Text>Edit Video</Text></TouchableOpacity>
           {isLoading && <Text>Video merging is in process....</Text>}
           {/* <Section title="Learn More">
             Read the docs to discover what to do next:
