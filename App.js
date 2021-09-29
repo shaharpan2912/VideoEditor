@@ -135,6 +135,7 @@ const App: () => Node = () => {
     try {
       ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true, selectionLimit: 0 }, async (response) => {
         console.log(response);
+        setVideo(null);
         if (response.didCancel === true) {
           return;
         }
