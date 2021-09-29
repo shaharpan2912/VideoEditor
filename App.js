@@ -12,6 +12,7 @@ import * as RNFS from 'react-native-fs';
 import Video from 'react-native-video';
 import { TouchableOpacity, Dimensions, Platform } from 'react-native';
 import { LogLevel, RNFFprobe, RNFFmpeg, RNFFmpegConfig } from 'react-native-ffmpeg';
+import MediaMeta from 'react-native-media-meta';
 import * as ImagePicker from 'react-native-image-picker';
 // import RNFetchBlob from 'rn-fetch-blob';
 // import * as RNGRP from 'react-native-get-real-path';
@@ -25,6 +26,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Alert
 } from 'react-native';
 
 import {
@@ -42,8 +44,23 @@ let downloaDirectoryPath = RNFS.DownloadDirectoryPath;
 if (Platform.OS === 'ios') {
   downloaDirectoryPath = RNFS.DocumentDirectoryPath;
 }
+if (Platform.OS === 'android') {
+  RNFS.copyFileAssets('fonts/OpenSans-Regular.ttf', `${RNFS.DocumentDirectoryPath}/OpenSans-Regular.ttf`)
+    .then(data => {
+      RNFFmpegConfig.setFontDirectory(RNFS.DocumentDirectoryPath);
+    })
+    .catch(e => {
+      console.log("e", e);
+    })
+} else {
+  RNFFmpegConfig.setFontDirectory(`${RNFS.MainBundlePath}assets/fonts`);
+}
+
 const androidFontPath = '/system/fonts/DroidSans.ttf';
+const font = 'OpenSans-Regular';
 const iosFontPath = `${RNFS.MainBundlePath}assets/fonts/OpenSans-Regular.ttf`;
+// const iosFontPath = `./assets/fonts/OpenSans-Regular.ttf`;
+
 let fontPath = androidFontPath;
 if (Platform.OS === 'ios') {
   fontPath = iosFontPath
@@ -89,124 +106,157 @@ const App: () => Node = () => {
   // }
 
   selectVideo = async () => {
-    ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true, selectionLimit: 0 }, async (response) => {
-      console.log(response);
-      // ffmpeg -i output1.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts fileIntermediate1.ts
-      const files = [];
-      setIsLoading(true);
-      try {
-        await RNFS.unlink(`${directoryPath}/temp0.mp4`);
-        await RNFS.unlink(`${directoryPath}/temp1.mp4`);
-      } catch (e) {
-        console.log("e", e);
-      }
-      for (let i = 0; i < response.assets.length; i++) {
-        const currentData = response.assets[i];
-        const fileLocation = await getFileUrl(currentData.uri, `${directoryPath}/temp${i}.mp4`);
-        // const getVideoHeight = `-v error -show_entries stream=width,height -of json=compact=1 ${fileLocation}`
-        // const statistics = await executeFFprobe(getVideoHeight);
-        const statistics = await getMediaInformation(fileLocation);
-        // const allProperty = await statistics.getAllProperties();
-        const videoStats = await statistics.getStreams();
-        // const videoStream = await videoStats[1].getAllProperties();
-        // console.log("typeof videoStats", typeof videoStats);
-        // const height = videoStats.getAllProperties();
-        // const width = videoStats.width;
-        let height = 0;
-        let width = 0;
-        for (let j = 0; j < videoStats.length; j++) {
-          const stream = videoStats[j];
-          const properties = await stream.getAllProperties();
-          if (properties.height) {
-            height = properties.height;
-            width = properties.width;
+    try {
+      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true, selectionLimit: 0 }, async (response) => {
+        console.log(response);
+        // ffmpeg -i output1.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts fileIntermediate1.ts
+        const files = [];
+        setIsLoading(true);
+        try {
+          await RNFS.unlink(`${directoryPath}/temp0.mp4`);
+          await RNFS.unlink(`${directoryPath}/temp1.mp4`);
+        } catch (e) {
+          console.log("e", e);
+        }
+        for (let i = 0; i < response.assets.length; i++) {
+          const currentData = response.assets[i];
+          const fileLocation = await getFileUrl(currentData.uri, `${directoryPath}/temp${i}.mp4`);
+          // const getVideoHeight = `-v error -show_entries stream=width,height -of json=compact=1 ${fileLocation}`
+          // const statistics = await executeFFprobe(getVideoHeight);
+          const mediaInfo = await MediaMeta.get(fileLocation);
+          const { height, width } = mediaInfo;
+          // const statistics = await getMediaInformation(fileLocation);
+          // // const allProperty = await statistics.getAllProperties();
+          // const videoStats = await statistics.getStreams();
+          // // const videoStream = await videoStats[1].getAllProperties();
+          // // console.log("typeof videoStats", typeof videoStats);
+          // // const height = videoStats.getAllProperties();
+          // // const width = videoStats.width;
+          // let height = 0;
+          // let width = 0;
+          // for (let j = 0; j < videoStats.length; j++) {
+          //   const stream = videoStats[j];
+          //   const properties = await stream.getAllProperties();
+          //   if (properties.height) {
+          //     height = properties.height;
+          //     width = properties.width;
+          //   }
+          // }
+
+          const fileObj = {
+            location: fileLocation,
+            originalHeight: height,
+            originalWidth: width,
+            height,
+            width,
+            sar: width / height
           }
+          files.push(fileObj);
         }
 
-        const fileObj = {
-          location: fileLocation,
-          originalHeight: height,
-          originalWidth: width,
-          height,
-          width,
-          sar: width / height
+        let scaleHeight = null;
+        let scaleWidth = null;
+
+        if (files[0].originalWidth > files[1].originalWidth && files[0].originalHeight > files[1].originalHeight) {
+          files[0].height = files[1].originalHeight;
+          files[0].width = Math.floor(files[0].height * files[0].sar)
+          files[1].addPad = true;
+        } else if (files[0].originalWidth > files[1].originalWidth && files[0].originalHeight < files[1].originalHeight) {
+          files[1].height = files[0].originalHeight;
+          files[1].width = Math.floor(files[1].height * files[1].sar);
+          files[1].addPad = true;
+        } else if (files[1].originalWidth > files[0].originalWidth && files[1].originalHeight < files[0].originalHeight) {
+          files[0].height = files[1].originalHeight;
+          files[0].width = Math.floor(files[0].height * files[0].sar);
+          files[0].addPad = true;
+        } else if (files[1].originalWidth > files[0].originalWidth && files[1].originalHeight > files[0].originalHeight) {
+          files[1].height = files[0].originalHeight;
+          files[1].width = Math.floor(files[1].height * files[1].sar);
+          files[0].addPad = true;
         }
-        files.push(fileObj);
-      }
+        scaleHeight = files[0].sar > files[1].sar ? files[0].height : files[1].height;
+        scaleWidth = files[0].sar > files[1].sar ? files[0].width : files[1].width;
+        let darValue = '10/16';
+        // let darValue = null;
+        console.log("scaleHeight", scaleHeight);
+        console.log("scaleWidth", scaleWidth);
+        if (files[0].width > files[0].height || files[1].width > files[1].height) {
+          darValue = '16/9'
+        } else if (files[0].width < files[0].height && files[1].width < files[1].height) {
+          darValue = '10/16'
+        }
+        // 65535/2733
+        // -r 24000/1001 
+        // force_original_aspect_ratio=decrease,
+        // setdar=16/9
+        // -b:v 2000k
 
-      let scaleHeight = null;
-      let scaleWidth = null;
+        let command = `-i  ${files[0].location} -i ${files[1].location} -b:v 1000k -r 50   -filter_complex "`
+        if (files[0].addPad) {
+          command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
+        } else {
+          command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
+        }
+        if (files[1].addPad) {
+          command += `[1:v]scale=${files[1].width - 1}:${files[1].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v1];`
+        } else {
+          command += `[1:v]scale=${files[1].width - 1}:${files[1].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v1];`
+        }
+        command += `[v0] [0:a] [v1] [1:a] concat=n=2:v=1:a=1 [v] [a];`
+        // command += `[v]drawtext=fontfile=${fontPath}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
+        // drawtext=fontfile=${fontPath}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
-      if (files[0].originalWidth > files[1].originalWidth && files[0].originalHeight > files[1].originalHeight) {
-        files[0].height = files[1].originalHeight;
-        files[0].width = Math.floor(files[0].height * files[0].sar)
-        files[1].addPad = true;
-      } else if (files[0].originalWidth > files[1].originalWidth && files[0].originalHeight < files[1].originalHeight) {
-        files[1].height = files[0].originalHeight;
-        files[1].width = Math.floor(files[1].height * files[1].sar);
-        files[1].addPad = true;
-      } else if (files[1].originalWidth > files[0].originalWidth && files[1].originalHeight < files[0].originalHeight) {
-        files[0].height = files[1].originalHeight;
-        files[0].width = Math.floor(files[0].height * files[0].sar);
-        files[0].addPad = true;
-      } else if (files[1].originalWidth > files[0].originalWidth && files[1].originalHeight > files[0].originalHeight) {
-        files[1].height = files[0].originalHeight;
-        files[1].width = Math.floor(files[1].height * files[1].sar);
-        files[0].addPad = true;
-      }
-      scaleHeight = files[0].sar > files[1].sar ? files[0].height : files[1].height;
-      scaleWidth = files[0].sar > files[1].sar ? files[0].width : files[1].width;
-      let darValue = '10/16';
-      // let darValue = null;
-      console.log("scaleHeight", scaleHeight);
-      console.log("scaleWidth", scaleWidth);
-      if (files[0].width > files[0].height || files[1].width > files[1].height) {
-        darValue = '16/9'
-      } else if (files[0].width < files[0].height && files[1].width < files[1].height) {
-        darValue = '10/16'
-      }
-      // 65535/2733
-      // -r 24000/1001 
-      // force_original_aspect_ratio=decrease,
-      // setdar=16/9
-      // -b:v 2000k 
-      let command = `-i  ${files[0].location} -i ${files[1].location} -b:v 1000k -r 50  -filter_complex "`
-      if (files[0].addPad) {
-        command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1},pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setdar=${darValue}[v0];`
-      } else {
-        command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1},pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setdar=${darValue}[v0];`
-      }
-      if (files[1].addPad) {
-        command += `[1:v]scale=${files[1].width - 1}:${files[1].height - 1},pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setdar=${darValue}[v1];`
-      } else {
-        command += `[1:v]scale=${files[1].width - 1}:${files[1].height - 1},pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setdar=${darValue}[v1];`
-      }
-      command += `[v0] [0:a] [v1] [1:a] concat=n=2:v=1:a=1 [v] [a];`
-      command += `[v]drawtext=fontfile=${fontPath}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
-      drawtext=fontfile=${fontPath}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
+        command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
+        drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
-      // command += `[v]drawtext=fontfile=/system/fonts/DroidSans.ttf:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
-      //   drawtext=fontfile=/system/fonts/DroidSans.ttf:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
-      command += ` -map "[vs]" -map "[a]" -y ${downloaDirectoryPath}/output1.mp4`
-      console.log("command", command);
-      console.log(JSON.stringify(files));
+        command += ` -map "[vs]" -map "[a]" -y ${downloaDirectoryPath}/output1.mp4`
+        console.log("command", command);
+        console.log(JSON.stringify(files));
 
-      await executeFFmpeg(command);
-      setIsLoading(false);
-      setVideo(`${downloaDirectoryPath}/output1.mp4`)
+        const result = await executeFFmpeg(command);
+        if (result === 1) {
+          Alert.alert(
+            "Error",
+            "Error in video merging",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+        }
+        setIsLoading(false);
+        setVideo(`${downloaDirectoryPath}/output1.mp4`);
 
-      for (let i = 0; i < response.assets.length; i++) {
-        // RNFS.unlink(`${directoryPath}/fileIntermediate${i}.ts`);
-        // console.log("file", `${directoryPath}/fileIntermediate${i}.ts deleted`);
-        // const currentData = response.assets[i];
-        // const command = `-i ${currentData.uri} -c copy -bsf:v h264_mp4toannexb -f mpegts ${directoryPath}/fileIntermediate${i}.ts`
-        // executeFFmpeg(command);
-      }
-      let ffCommand = [``];
-      // videoUrl = response.assets[0].uri;
-      // setVideo(videoUrl);
-      // this.setState({ video: response });
-    })
+        for (let i = 0; i < response.assets.length; i++) {
+          // RNFS.unlink(`${directoryPath}/fileIntermediate${i}.ts`);
+          // console.log("file", `${directoryPath}/fileIntermediate${i}.ts deleted`);
+          // const currentData = response.assets[i];
+          // const command = `-i ${currentData.uri} -c copy -bsf:v h264_mp4toannexb -f mpegts ${directoryPath}/fileIntermediate${i}.ts`
+          // executeFFmpeg(command);
+        }
+        let ffCommand = [``];
+        // videoUrl = response.assets[0].uri;
+        // setVideo(videoUrl);
+        // this.setState({ video: response });
+      })
+    } catch (e) {
+      Alert.alert(
+        "Error",
+        e.toString(),
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+    }
   }
 
   getFileUrl = async (url, path) => {
@@ -234,7 +284,9 @@ const App: () => Node = () => {
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
           </Section> */}
-          <TouchableOpacity onPress={() => selectVideo()} ><Text>Select Video</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => selectVideo()} ><Text style={{
+            fontFamily: 'OpenSans-Regular'
+          }}>Select Video</Text></TouchableOpacity>
           {video && <Video source={{ uri: video }}   // Can be a URL or a local file.
             ref={(ref) => {
               this.player = ref
