@@ -70,8 +70,10 @@ if (Platform.OS === 'ios') {
       console.log(err.message, err.code);
     });
 }
+const font = 'OpenSans-ExtraBold';
+const fontFile = `${font}.ttf`
 if (Platform.OS === 'android') {
-  RNFS.copyFileAssets('fonts/OpenSans-Regular.ttf', `${RNFS.DocumentDirectoryPath}/OpenSans-Regular.ttf`)
+  RNFS.copyFileAssets(`fonts/${fontFile}`, `${RNFS.DocumentDirectoryPath}/${fontFile}`)
     .then(data => {
       RNFFmpegConfig.setFontDirectory(RNFS.DocumentDirectoryPath);
     })
@@ -83,8 +85,7 @@ if (Platform.OS === 'android') {
 }
 
 const androidFontPath = '/system/fonts/DroidSans.ttf';
-const font = 'OpenSans-Regular';
-const iosFontPath = `${RNFS.MainBundlePath}assets/fonts/OpenSans-Regular.ttf`;
+const iosFontPath = `${RNFS.MainBundlePath}assets/fonts/${fontFile}`;
 // const iosFontPath = `./assets/fonts/OpenSans-Regular.ttf`;
 
 let fontPath = androidFontPath;
@@ -235,8 +236,8 @@ const App: () => Node = () => {
         // force_original_aspect_ratio=decrease,
         // setdar=16/9
         // -b:v 2000k
-
-        let command = `-i  ${files[0].location} -i ${files[1].location} -b:v 500k -r 25   -filter_complex "`
+        // -crf 24
+        let command = `-i  ${files[0].location} -i ${files[1].location}  -r 24  -b:v 200k -filter_complex "`
         if (files[0].addPad) {
           command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
         } else {
@@ -251,8 +252,8 @@ const App: () => Node = () => {
         // command += `[v]drawtext=fontfile=${fontPath}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
         // drawtext=fontfile=${fontPath}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
-        command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=20:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
-        drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=20:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
+        command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=50:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
+        drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=50:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
         command += ` -map "[vs]" -map "[a]" -y ${downloaDirectoryPath}/output1.mp4`
         console.log("command", command);
