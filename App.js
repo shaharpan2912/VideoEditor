@@ -134,7 +134,7 @@ const App: () => Node = () => {
 
   selectVideo = async () => {
     try {
-      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true, selectionLimit: 0 }, async (response) => {
+      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true, selectionLimit: 100 }, async (response) => {
         console.log(response);
         setVideo(null);
         if (response.didCancel === true) {
@@ -195,7 +195,8 @@ const App: () => Node = () => {
             originalWidth: width,
             height,
             width,
-            sar: width / height
+            sar: width / height,
+            isLandscape: width < height ? true : false
           }
           files.push(fileObj);
         }
@@ -241,7 +242,7 @@ const App: () => Node = () => {
         // setdar=16/9
         // -b:v 2000k
         // -crf 24
-        let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark -vsync 1  -r 24  -b:v 200k -filter_complex "`
+        let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark -vsync 1  -r 24  -b:v 1000k -filter_complex "`
         if (files[0].addPad) {
           command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
         } else {
