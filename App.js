@@ -223,13 +223,17 @@ const App: () => Node = () => {
         scaleHeight = files[0].sar > files[1].sar ? files[0].height : files[1].height;
         scaleWidth = files[0].sar > files[1].sar ? files[0].width : files[1].width;
         let darValue = '10/16';
+        let fontSize = 14;
         // let darValue = null;
         console.log("scaleHeight", scaleHeight);
         console.log("scaleWidth", scaleWidth);
         if (files[0].width > files[0].height || files[1].width > files[1].height) {
           darValue = '16/9'
+          fontSize = 30;
         } else if (files[0].width < files[0].height && files[1].width < files[1].height) {
-          darValue = '10/16'
+          darValue = '10/16';
+          fontSize = 14;
+
         }
         // 65535/2733
         // -r 24000/1001 
@@ -237,7 +241,7 @@ const App: () => Node = () => {
         // setdar=16/9
         // -b:v 2000k
         // -crf 24
-        let command = `-i  ${files[0].location} -i ${files[1].location}  -r 24  -b:v 200k -filter_complex "`
+        let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark -vsync 1  -r 24  -b:v 200k -filter_complex "`
         if (files[0].addPad) {
           command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
         } else {
@@ -252,8 +256,8 @@ const App: () => Node = () => {
         // command += `[v]drawtext=fontfile=${fontPath}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
         // drawtext=fontfile=${fontPath}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=14:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
-        command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=50:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
-        drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=50:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
+        command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=${fontSize}:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
+        drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=${fontSize}:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
         command += ` -map "[vs]" -map "[a]" -y ${downloaDirectoryPath}/output1.mp4`
         console.log("command", command);
