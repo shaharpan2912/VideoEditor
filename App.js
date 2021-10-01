@@ -10,7 +10,7 @@ import React, { useState, } from 'react';
 import type { Node } from 'react';
 import * as RNFS from 'react-native-fs';
 import Video from 'react-native-video';
-import { TouchableOpacity, Dimensions, Platform, Button } from 'react-native';
+import { TouchableOpacity, Dimensions, Platform, Button, PixelRatio } from 'react-native';
 import { LogLevel, RNFFprobe, RNFFmpeg, RNFFmpegConfig } from 'react-native-ffmpeg';
 import MediaMeta from 'react-native-media-meta';
 import * as ImagePicker from 'react-native-image-picker';
@@ -41,7 +41,8 @@ import {
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const directoryPath = RNFS.TemporaryDirectoryPath;
 let downloaDirectoryPath = RNFS.DownloadDirectoryPath;
-
+const pixelRatioWidth = 1200;
+const pixelRatioHeight = 2880;
 //Users/dipakbhoot/Library/Developer/CoreSimulator/Devices/CC405925-114D-4B14-B10F-08BA87F4391A/data/Containers/Bundle/Application/AB374989-D17F-4F8D-A82E-C76044592508/VideoEditor.app/OpenSans-Italic.ttf
 
 if (Platform.OS === 'ios') {
@@ -161,6 +162,7 @@ const App: () => Node = () => {
         try {
           await RNFS.unlink(`${directoryPath}/temp0.mp4`);
           await RNFS.unlink(`${directoryPath}/temp1.mp4`);
+          await RNFS.unlink(`${directoryPath}/temp1.mp4`);
         } catch (e) {
           console.log("e", e);
         }
@@ -170,10 +172,8 @@ const App: () => Node = () => {
           // const getVideoHeight = `-v error -show_entries stream=width,height -of json=compact=1 ${fileLocation}`
           // const statistics = await executeFFprobe(getVideoHeight);
           const mediaInfo = await MediaMeta.get(fileLocation);
-          const { height, width } = mediaInfo;
-          // const command = `-i ${fileLocation}  -codec:a copy -preset ultrafast -y ${directoryPath}/temp${i}.mp4`;
-          // const result = await executeFFmpeg(command);
-          // fileLocation = `${directoryPath}/temp${i}.mp4`;
+          let { height, width } = mediaInfo;
+
           // const statistics = await getMediaInformation(fileLocation);
           // // const allProperty = await statistics.getAllProperties();
           // const videoStats = await statistics.getStreams();
@@ -191,6 +191,33 @@ const App: () => Node = () => {
           //     width = properties.width;
           //   }
           // }
+          console.log("original Width", width);
+          console.log("original height", height);
+          const sar = width / height;
+          if (width < height && height > pixelRatioHeight) {
+            height = pixelRatioHeight;
+            width = Math.floor(height * sar)
+          } else if (width > height && width > pixelRatioWidth) {
+            width = pixelRatioWidth;
+            height = Math.floor(width / sar)
+          }
+          // if (width < height && height > screenHeight * PixelRatio.get()) {
+          //   height = screenHeight * PixelRatio.get();
+          //   width = Math.floor(height * sar)
+          // } else if (width > height && width > screenWidth * PixelRatio.get()) {
+          //   width = screenWidth * PixelRatio.get();
+          //   height = Math.floor(width / sar)
+          // }
+          width = width - (width % 2)
+          height = height - (height % 2)
+          console.log("width", width);
+          console.log("height", height);
+          // console.log(" screenHeight * PixelRatio.get()", screenHeight * PixelRatio.get());
+          // console.log("screenWidth * PixelRatio.get()", screenWidth * PixelRatio.get());
+          // const command = `-i ${fileLocation}  -benchmark  -c:v libx264 -crf 28 -r 24 -preset ultrafast -vf "scale=${width}:${height}" -y ${directoryPath}/temp${i}.mp4`;
+          // console.log("command", command);
+          // const result = await executeFFmpeg(command);
+          fileLocation = `${directoryPath}/temp${i}.mp4`;
 
           const fileObj = {
             location: fileLocation,
@@ -198,7 +225,7 @@ const App: () => Node = () => {
             originalWidth: width,
             height,
             width,
-            sar: width / height,
+            sar,
             isLandscape: width < height ? true : false
           }
           files.push(fileObj);
@@ -207,6 +234,15 @@ const App: () => Node = () => {
         let scaleHeight = null;
         let scaleWidth = null;
 
+
+        // if (files[1].width < files[1].height && files[1].height > screenHeight) {
+        //   files[1].height = scaleHeight;
+        //   files[1].width = Math.floor(files[1].height * files[1].sar)
+        // }
+        // if (files[1].width > files[1].height && files[1].width > screenWidth) {
+        //   files[1].width = scaleWidth;
+        //   files[1].height = Math.floor(files[1].width / files[1].sar)
+        // }
         if (files[0].originalWidth > files[1].originalWidth && files[0].originalHeight > files[1].originalHeight) {
           files[0].height = files[1].originalHeight;
           files[0].width = Math.floor(files[0].height * files[0].sar)
@@ -239,7 +275,6 @@ const App: () => Node = () => {
         } else if (files[0].width < files[0].height && files[1].width < files[1].height) {
           darValue = '10/16';
           fontSize = 14;
-
         }
         // 65535/2733
         // -r 24000/1001 
@@ -247,7 +282,9 @@ const App: () => Node = () => {
         // setdar=16/9
         // -b:v 2000k
         // -crf 24
-        let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark  -preset ultrafast -r 24 -q 10 -filter_complex "`
+        // -preset ultrafast
+        // -c:v libx264 -crf 28 -r 24 
+        let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark -c:v libx264 -crf 32 -r 24 -preset ultrafast -filter_complex "`
         if (files[0].addPad) {
           command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
         } else {
