@@ -45,7 +45,7 @@ let downloaDirectoryPath = RNFS.DownloadDirectoryPath;
 //Users/dipakbhoot/Library/Developer/CoreSimulator/Devices/CC405925-114D-4B14-B10F-08BA87F4391A/data/Containers/Bundle/Application/AB374989-D17F-4F8D-A82E-C76044592508/VideoEditor.app/OpenSans-Italic.ttf
 
 if (Platform.OS === 'ios') {
-  downloaDirectoryPath = RNFS.DocumentDirectoryPath;
+  downloaDirectoryPath = RNFS.TemporaryDirectoryPath;
   console.log("RNFS.MainBundlePath", RNFS.MainBundlePath)
   RNFS.readDir(RNFS.MainBundlePath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
     .then((result) => {
@@ -171,7 +171,7 @@ const App: () => Node = () => {
           // const statistics = await executeFFprobe(getVideoHeight);
           const mediaInfo = await MediaMeta.get(fileLocation);
           const { height, width } = mediaInfo;
-          // const command = `-i ${fileLocation} -vcodec libx264 -r 10  -b:v 200k -y ${directoryPath}/temp${i}.mp4`;
+          // const command = `-i ${fileLocation}  -codec:a copy -preset ultrafast -y ${directoryPath}/temp${i}.mp4`;
           // const result = await executeFFmpeg(command);
           // fileLocation = `${directoryPath}/temp${i}.mp4`;
           // const statistics = await getMediaInformation(fileLocation);
@@ -285,8 +285,13 @@ const App: () => Node = () => {
             ]
           );
         }
+        if (Platform.OS === 'ios') {
+          await RNFS.moveFile(`${downloaDirectoryPath}/output1.mp4`, `${RNFS.DocumentDirectoryPath}/output1.mp4`)
+          setVideo(`${RNFS.DocumentDirectoryPath}/output1.mp4`);
+        } else {
+          setVideo(`${downloaDirectoryPath}/output1.mp4`);
+        }
         setIsLoading(false);
-        setVideo(`${downloaDirectoryPath}/output1.mp4`);
 
         for (let i = 0; i < response.assets.length; i++) {
           // RNFS.unlink(`${directoryPath}/fileIntermediate${i}.ts`);
