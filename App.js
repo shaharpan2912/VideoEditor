@@ -284,6 +284,7 @@ const App: () => Node = () => {
         // -crf 24
         // -preset ultrafast
         // -c:v libx264 -crf 28 -r 24 
+        const videoName = `${new Date().getTime()}.mp4`;
         let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark -c:v libx264 -crf 32 -r 24 -preset ultrafast -filter_complex "`
         if (files[0].addPad) {
           command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
@@ -302,7 +303,7 @@ const App: () => Node = () => {
         command += `[v]drawtext=font=${font}:text='Qwarke App for Scientist Community':enable='between(t,0,30)':fontcolor=black:fontsize=${fontSize}:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2,
         drawtext=font=${font}:text='Video merging is going on':enable='between(t,30,60)':fontcolor=black:fontsize=${fontSize}:box=1:boxcolor=white@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2[vs]"`
 
-        command += ` -map "[vs]" -map "[a]" -y ${downloaDirectoryPath}/output1.mp4`
+        command += ` -map "[vs]" -map "[a]" -y ${downloaDirectoryPath}/${videoName}`
         console.log("command", command);
         console.log(JSON.stringify(files));
 
@@ -323,10 +324,10 @@ const App: () => Node = () => {
           );
         }
         if (Platform.OS === 'ios') {
-          await RNFS.moveFile(`${downloaDirectoryPath}/output1.mp4`, `${RNFS.DocumentDirectoryPath}/output1.mp4`)
-          setVideo(`${RNFS.DocumentDirectoryPath}/output1.mp4`);
+          await RNFS.moveFile(`${downloaDirectoryPath}/${videoName}`, `${RNFS.DocumentDirectoryPath}/${videoName}`)
+          setVideo(`${RNFS.DocumentDirectoryPath}/${videoName}`);
         } else {
-          setVideo(`${downloaDirectoryPath}/output1.mp4`);
+          setVideo(`${downloaDirectoryPath}/${videoName}`);
         }
         setIsLoading(false);
 
