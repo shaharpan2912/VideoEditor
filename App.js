@@ -16,7 +16,7 @@ import MediaMeta from 'react-native-media-meta';
 import * as ImagePicker from 'react-native-image-picker';
 // import RNFetchBlob from 'rn-fetch-blob';
 // import * as RNGRP from 'react-native-get-real-path';
-import { executeFFmpeg, getMediaInformation } from './src/react-native-ffmpeg-api-wrapper';
+import { executeFFmpeg, getMediaInformation, executeFFmpegAsync } from './src/react-native-ffmpeg-api-wrapper';
 
 import {
   SafeAreaView,
@@ -38,7 +38,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 // RNFFmpeg.setFontDirectory(['/system/fonts/']);
-const { width, height } = Dimensions.get('window');
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const directoryPath = RNFS.TemporaryDirectoryPath;
 let downloaDirectoryPath = RNFS.DownloadDirectoryPath;
 
@@ -166,11 +166,14 @@ const App: () => Node = () => {
         }
         for (let i = 0; i < response.assets.length; i++) {
           const currentData = response.assets[i];
-          const fileLocation = await getFileUrl(currentData.uri, `${directoryPath}/temp${i}.mp4`);
+          let fileLocation = await getFileUrl(currentData.uri, `${directoryPath}/temp${i}.mp4`);
           // const getVideoHeight = `-v error -show_entries stream=width,height -of json=compact=1 ${fileLocation}`
           // const statistics = await executeFFprobe(getVideoHeight);
           const mediaInfo = await MediaMeta.get(fileLocation);
           const { height, width } = mediaInfo;
+          // const command = `-i ${fileLocation} -vcodec libx264 -r 10  -b:v 200k -y ${directoryPath}/temp${i}.mp4`;
+          // const result = await executeFFmpeg(command);
+          // fileLocation = `${directoryPath}/temp${i}.mp4`;
           // const statistics = await getMediaInformation(fileLocation);
           // // const allProperty = await statistics.getAllProperties();
           // const videoStats = await statistics.getStreams();
@@ -228,6 +231,8 @@ const App: () => Node = () => {
         // let darValue = null;
         console.log("scaleHeight", scaleHeight);
         console.log("scaleWidth", scaleWidth);
+        console.log("screenHeight", screenHeight);
+        console.log("screenWidth", screenWidth);
         if (files[0].width > files[0].height || files[1].width > files[1].height) {
           darValue = '16/9'
           fontSize = 30;
@@ -242,7 +247,7 @@ const App: () => Node = () => {
         // setdar=16/9
         // -b:v 2000k
         // -crf 24
-        let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark -vsync 1  -r 24  -b:v 1000k -filter_complex "`
+        let command = `-i  ${files[0].location} -i ${files[1].location}  -benchmark  -preset ultrafast -r 24 -q 10 -filter_complex "`
         if (files[0].addPad) {
           command += `[0:v]scale=${files[0].width - 1}:${files[0].height - 1}:force_original_aspect_ratio=decrease,pad=${scaleWidth}:${scaleHeight}:(${scaleWidth}-iw)/2:(${scaleWidth}-ih)/2:black,setsar=1,setdar=${darValue}[v0];`
         } else {
@@ -274,6 +279,7 @@ const App: () => Node = () => {
                 text: "Cancel",
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel"
+
               },
               { text: "OK", onPress: () => console.log("OK Pressed") }
             ]
@@ -355,7 +361,7 @@ const App: () => Node = () => {
             // onBuffer={this.onBuffer}                // Callback when remote video is buffering
             // onError={this.videoError}               // Callback when video cannot be loaded
             style={{
-              height,
+              height: screenHeight,
               width: '100%',
               // position: 'absolute',
               // top: 0,
