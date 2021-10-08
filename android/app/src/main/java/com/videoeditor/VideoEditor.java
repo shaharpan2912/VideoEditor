@@ -3,10 +3,10 @@ package com.videoeditor;
 import static com.facebook.yoga.YogaStyleInputs.MIN_HEIGHT;
 import static com.facebook.yoga.YogaStyleInputs.MIN_WIDTH;
 
-import com.abedelazizshe.lightcompressorlibrary.CompressionListener;
-import com.abedelazizshe.lightcompressorlibrary.VideoCompressor;
-import com.abedelazizshe.lightcompressorlibrary.VideoQuality;
-import com.abedelazizshe.lightcompressorlibrary.config.Configuration;
+//import com.abedelazizshe.lightcompressorlibrary.CompressionListener;
+//import com.abedelazizshe.lightcompressorlibrary.VideoCompressor;
+//import com.abedelazizshe.lightcompressorlibrary.VideoQuality;
+//import com.abedelazizshe.lightcompressorlibrary.config.Configuration;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -24,6 +24,10 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 import com.reactnativevideohelper.video.MP4Builder;
+import com.videoeditor.compressor.CompressionListener;
+import com.videoeditor.compressor.VideoCompressor;
+import com.videoeditor.compressor.VideoQuality;
+import com.videoeditor.compressor.config.Configuration;
 
 import android.annotation.TargetApi;
 import android.media.MediaCodec;
