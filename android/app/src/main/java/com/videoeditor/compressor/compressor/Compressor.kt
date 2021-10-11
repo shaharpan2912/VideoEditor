@@ -37,7 +37,7 @@ object Compressor {
     private const val MEDIACODEC_TIMEOUT_DEFAULT = 100L
 
     // MediaExtractor extracts encoded media data from the source
-    private lateinit var extractor: MediaExtractor
+//    private lateinit var extractor: MediaExtractor
     private lateinit var compressionProgressListener: CompressionProgressListener
     private var duration: Long = 0
     private var rotation: Int = 0
@@ -58,7 +58,7 @@ object Compressor {
         listener: CompressionProgressListener,
     ): Result {
 
-        extractor = MediaExtractor()
+        var extractor = MediaExtractor()
         compressionProgressListener = listener
         // Retrieve the source's metadata to be used as input to generate new values for compression
         val mediaMetadataRetriever = MediaMetadataRetriever()
@@ -163,7 +163,8 @@ object Compressor {
             destination,
             newBitrate,
             streamableFile,
-            configuration.frameRate
+            configuration.frameRate,
+            extractor
         )
     }
 
@@ -174,7 +175,8 @@ object Compressor {
         destination: String,
         newBitrate: Int,
         streamableFile: String?,
-        frameRate: Int?
+        frameRate: Int?,
+        extractor:MediaExtractor
     ): Result {
 
         if (newWidth != 0 && newHeight != 0) {
@@ -399,11 +401,13 @@ object Compressor {
                     encoder,
                     inputSurface,
                     outputSurface,
+                    extractor
                 )
 
                 processAudio(
                     mediaMuxer = mediaMuxer,
-                    bufferInfo = bufferInfo
+                    bufferInfo = bufferInfo,
+                    extractor
                 )
 
                 extractor.release()
@@ -437,6 +441,7 @@ object Compressor {
     private fun processAudio(
         mediaMuxer: MP4Builder,
         bufferInfo: MediaCodec.BufferInfo,
+        extractor:MediaExtractor
     ) {
         val audioIndex = findTrack(extractor, isVideo = false)
         if (audioIndex >= 0) {
@@ -537,6 +542,7 @@ object Compressor {
         encoder: MediaCodec,
         inputSurface: InputSurface,
         outputSurface: OutputSurface,
+        extractor: MediaExtractor
     ) {
         extractor.unselectTrack(videoIndex)
 
